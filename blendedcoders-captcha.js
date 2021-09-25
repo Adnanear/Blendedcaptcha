@@ -24,6 +24,8 @@
 
 
 (function() {
+  console.warn("Blendedcoders captcha integrated")
+  
   // Preparing some pre process that we might need
   Object.defineProperty(Array.prototype, 'random', {
     configurable: false,
