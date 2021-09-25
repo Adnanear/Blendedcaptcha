@@ -15,7 +15,8 @@
       .on("robot", function() {
         console.log("I'm a robot")
       })
-      .on("human robot", isHumain => console.log(`isHuman ${isHumain ? 'Yes' : 'No'}`))
+      // Or use multiple events handler with the `isHuman` argument which returns 1 if it's a human and 0 if it's a robot
+      .on("human robot", isHuman => console.log(`isHuman ${isHumain ? 'Yes' : 'No'}`))
       .Render()
     </script>
     
