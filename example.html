@@ -8,7 +8,15 @@
     <figure class="blended-captcha" id="captcha"></figure>
     <script src="/core/javascripts/blendedcoders-captcha.js" charset="utf-8"></script>
     <script type="text/javascript">
-      new BlendedCaptcha("#captcha").Render()
+      var captcha = new BlendedCaptcha("#captcha")
+      .on("human", function() {
+        console.log( "I'm a human" )
+      })
+      .on("robot", function() {
+        console.log("I'm a robot")
+      })
+      .on("human robot", isHumain => console.log(`isHuman ${isHumain ? 'Yes' : 'No'}`))
+      .Render()
     </script>
     
   </body>
