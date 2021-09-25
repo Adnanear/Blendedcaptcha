@@ -24,8 +24,6 @@
 
 
 (function() {
-  console.warn("Blendedcoders captcha integrated")
-  
   // Preparing some pre process that we might need
   Object.defineProperty(Array.prototype, 'random', {
     configurable: false,
@@ -43,7 +41,6 @@
     var luck = Math.floor(Math.random() * (max - min) + min)
     return luck == +exception ? Math.randomExcept(exception, min, max) : luck
   }
-
 
   // Generating the theme
   var theme_plain = `@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");figure.blendedcoders-captcha{position:relative;box-sizing:border-box;border-radius:8px;border:1px solid rgba(0,0,0,0.15);width:fit-content;margin:2rem auto;background:#f3f3f3;font-family:Ubuntu, sans-serif;max-width:270px;display:block}figure.blendedcoders-captcha img{pointer-events:none;user-select:none}figure.blendedcoders-captcha span.ak-ask{position:absolute;right:0;top:100%;display:flex;max-width:100%;padding:.12rem 0}figure.blendedcoders-captcha span.ak-ask a{color:black;font-family:inherit;font-size:13px;cursor:pointer;transition:all 0s ease;text-decoration:none}figure.blendedcoders-captcha span.ak-ask a:hover,figure.blendedcoders-captcha span.ak-ask a:active{text-decoration:underline}figure.blendedcoders-captcha span.ak-ask a:focus{box-shadow:0 0 2px #83c8ff}figure.blendedcoders-captcha>main{display:grid;grid-template-columns:auto 1fr auto;grid-gap:1rem;align-items:center;padding:1.25rem 1rem;border:inherit;border-top:0;border-left:0;border-right:0;z-index:1;background:inherit;border-radius:inherit}figure.blendedcoders-captcha>main>menu{padding:0;margin:0;display:flex}figure.blendedcoders-captcha>main>menu>label{font-weight:500;font-size:1.05em}figure.blendedcoders-captcha>main>menu>main{position:relative;border-radius:4px;border:2px solid rgba(0,0,0,0.15);display:block;width:30px;height:30px;cursor:pointer;background:white;transition:all .15s ease;text-align:center;line-height:1.7em;color:transparent}figure.blendedcoders-captcha>main>menu>main>i{transform:scale(0);transition:transform .2s ease-in}figure.blendedcoders-captcha>main>menu>img{max-width:40px;max-height:40px;margin:0 0 0 .5rem;pointer-events:none !important;filter:saturate(0) invert(1) opacity(0.2);-webkit-filter:saturate(0) invert(1) opacity(0.2);-moz-filter:saturate(0) invert(1) opacity(0.2);-ms-filter:saturate(0) invert(1) opacity(0.2);-o-filter:saturate(0) invert(1) opacity(0.2);user-select:none}figure.blendedcoders-captcha>nav{background:white;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;height:0;margin-top:-1px;padding:0;text-align:center;border-radius:inherit}figure.blendedcoders-captcha>nav label.ak-captcha-question{font-size:1.05em;font-weight:500;margin-bottom:1rem}figure.blendedcoders-captcha>nav>nav{flex:1;margin-top:1rem}figure.blendedcoders-captcha>nav>nav>button{padding:.5rem .75rem;cursor:pointer;transition:all .15s ease;color:black;border-radius:4px;border:1px solid rgba(0,0,0,0.15);font-size:.9em;text-transform:none;font-weight:500;font-family:inherit;background:#f1f1f1;margin-bottom:.25rem}figure.blendedcoders-captcha>nav>nav>button:hover{background:#e4e4e4}figure.blendedcoders-captcha>nav>nav>button:active{background:#dedede}figure.blendedcoders-captcha>nav>nav>button.active{border-color:#83c8ff;background:#d0eaff}figure.blendedcoders-captcha>nav>img{max-width:100%;max-height:300px;border-radius:8px;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.blendedcoders-captcha.developped>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent}figure.blendedcoders-captcha.developped>main>menu>main::before,figure.blendedcoders-captcha.developped>main>menu>main::after{content:'';width:100%;height:100%;position:absolute;left:50%;top:50%;border-radius:50%;background:rgba(0,124,183,0.3);z-index:1;pointer-events:none;animation:.75s waitingForVeirifcation linear infinite alternate;transform-origin:50% 50%;transform:translate(-50%, -50%) scale(0)}@keyframes waitingForVeirifcation{from{transform:translate(-50%, -50%) scale(0)}to{transform:translate(-50%, -50%) scale(1.5)}}figure.blendedcoders-captcha.developped>main>menu>main::before{animation-delay:.75s}figure.blendedcoders-captcha.developped>nav{margin-top:0;height:fit-content;padding:1rem}figure.blendedcoders-captcha.verified>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent;color:#1f9cff;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.blendedcoders-captcha.verified>main>menu>main>i{transform:scale(1)}figure.blendedcoders-captcha.failed>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent;color:#ff5c5c;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.blendedcoders-captcha.failed>main>menu>main>i{transform:scale(1)}figure.blendedcoders-captcha.redo>main>menu>main{border-radius:50%;border-color:transparent;box-shadow:0 0 0 1px rgba(0,0,0,0.15);color:inherit}figure.blendedcoders-captcha.redo>main>menu>main>i{transform:scale(1)}`
@@ -120,6 +117,9 @@ class BlendedCaptcha {
   }
 
   Init() {
+    // Forge the captcha
+    this.captcha.classList.add("blendedcoders-captcha")
+
     // on click to verify that the user is not a robot
     this.captcha.actors.checkbox.onclick = () => {
       if( +this.options.redos - this.redos < 0 ) return
