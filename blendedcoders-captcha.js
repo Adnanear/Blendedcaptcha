@@ -1,22 +1,72 @@
+/*
+
+  Copyright 2021 Blendedcoders
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this
+  software and associated documentation files (the "Software"), to deal in the Software
+  without restriction, including without limitation the rights to use, copy, modify,
+  merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+  Visit our website: https://www.blendedcoders.ma
+
+  Library author: Adnane Aref
+  Github: https://github.com/Adnanear
+
+*/
+
+
 (function() {
-  var theme_plain = `@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");figure.adar-captcha{position:relative;box-sizing:border-box;border-radius:8px;border:1px solid rgba(0,0,0,0.15);width:fit-content;margin:0;background:#f3f3f3;overflow:hidden;font-family:Ubuntu, sans-serif}figure.adar-captcha>main{display:grid;grid-template-columns:auto 1fr auto;grid-gap:1rem;align-items:center;padding:1.25rem 1rem;border:inherit;border-top:0;border-left:0;border-right:0;z-index:1;background:inherit}figure.adar-captcha>main>menu{padding:0;margin:0;display:flex}figure.adar-captcha>main>menu>label{font-weight:500;font-size:1.05em}figure.adar-captcha>main>menu>main{position:relative;border-radius:4px;border:2px solid rgba(0,0,0,0.15);display:block;width:30px;height:30px;cursor:pointer;background:white;transition:all .15s ease;display:flex;align-items:center;justify-content:center;color:transparent}figure.adar-captcha>main>menu>main>i{transform:scale(0);transition:transform .2s ease-in}figure.adar-captcha>main>menu>img{max-width:40px;max-height:40px;margin:0 0 0 .5rem;pointer-events:none !important;filter:saturate(0) invert(1) opacity(0.2);-webkit-filter:saturate(0) invert(1) opacity(0.2);-moz-filter:saturate(0) invert(1) opacity(0.2);-ms-filter:saturate(0) invert(1) opacity(0.2);-o-filter:saturate(0) invert(1) opacity(0.2);user-select:none}figure.adar-captcha>nav{background:white;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;height:0;margin-top:-1px;padding:0}figure.adar-captcha>nav label.ak-captcha-question{font-size:1.05em;font-weight:500;margin-bottom:1rem}figure.adar-captcha>nav>nav{flex:1;margin-bottom:1rem}figure.adar-captcha>nav>nav>button{padding:.5rem .75rem;cursor:pointer;transition:all .15s ease;color:black;border-radius:4px;border:1px solid rgba(0,0,0,0.15);font-size:.9em;text-transform:none;font-weight:500;font-family:inherit;background:#f1f1f1}figure.adar-captcha>nav>nav>button:hover{background:#e4e4e4}figure.adar-captcha>nav>nav>button:active{background:#dedede}figure.adar-captcha>nav>nav>button.active{border-color:#83c8ff;background:#d0eaff}figure.adar-captcha>nav>img{max-width:100%;max-height:300px;border-radius:8px;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.adar-captcha.developped>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent}figure.adar-captcha.developped>main>menu>main::before,figure.adar-captcha.developped>main>menu>main::after{content:'';width:100%;height:100%;position:absolute;left:50%;top:50%;border-radius:50%;background:rgba(0,124,183,0.3);z-index:1;pointer-events:none;animation:.75s waitingForVeirifcation linear infinite alternate;transform-origin:50% 50%;transform:translate(-50%, -50%) scale(0)}@keyframes waitingForVeirifcation{from{transform:translate(-50%, -50%) scale(0)}to{transform:translate(-50%, -50%) scale(1.5)}}figure.adar-captcha.developped>main>menu>main::before{animation-delay:.75s}figure.adar-captcha.developped>nav{margin-top:0;height:fit-content;padding:1rem}figure.adar-captcha.verified>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent;color:#1f9cff;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.adar-captcha.verified>main>menu>main>i{transform:scale(1)}`
+  // Preparing some pre process that we might need
+  Object.defineProperty(Array.prototype, 'random', {
+    configurable: false,
+    enumerable: false,
+    get: function() {
+      var layer = Math.floor(Math.random() * (this.length - 0) + 0)
+      return {
+        key: layer,
+        value: this[layer]
+      }
+    }
+  })
+
+  Math.randomExcept = function(exception, min=0, max=999) {
+    var luck = Math.floor(Math.random() * (max - min) + min)
+    return luck == +exception ? Math.randomExcept(exception, min, max) : luck
+  }
+
+
+  // Generating the theme
+  var theme_plain = `@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");figure.blendedcoders-captcha{position:relative;box-sizing:border-box;border-radius:8px;border:1px solid rgba(0,0,0,0.15);width:fit-content;margin:2rem auto;background:#f3f3f3;font-family:Ubuntu, sans-serif;max-width:270px;display:block}figure.blendedcoders-captcha img{pointer-events:none;user-select:none}figure.blendedcoders-captcha span.ak-ask{position:absolute;right:0;top:100%;display:flex;max-width:100%;padding:.12rem 0}figure.blendedcoders-captcha span.ak-ask a{color:black;font-family:inherit;font-size:13px;cursor:pointer;transition:all 0s ease;text-decoration:none}figure.blendedcoders-captcha span.ak-ask a:hover,figure.blendedcoders-captcha span.ak-ask a:active{text-decoration:underline}figure.blendedcoders-captcha span.ak-ask a:focus{box-shadow:0 0 2px #83c8ff}figure.blendedcoders-captcha>main{display:grid;grid-template-columns:auto 1fr auto;grid-gap:1rem;align-items:center;padding:1.25rem 1rem;border:inherit;border-top:0;border-left:0;border-right:0;z-index:1;background:inherit;border-radius:inherit}figure.blendedcoders-captcha>main>menu{padding:0;margin:0;display:flex}figure.blendedcoders-captcha>main>menu>label{font-weight:500;font-size:1.05em}figure.blendedcoders-captcha>main>menu>main{position:relative;border-radius:4px;border:2px solid rgba(0,0,0,0.15);display:block;width:30px;height:30px;cursor:pointer;background:white;transition:all .15s ease;text-align:center;line-height:1.7em;color:transparent}figure.blendedcoders-captcha>main>menu>main>i{transform:scale(0);transition:transform .2s ease-in}figure.blendedcoders-captcha>main>menu>img{max-width:40px;max-height:40px;margin:0 0 0 .5rem;pointer-events:none !important;filter:saturate(0) invert(1) opacity(0.2);-webkit-filter:saturate(0) invert(1) opacity(0.2);-moz-filter:saturate(0) invert(1) opacity(0.2);-ms-filter:saturate(0) invert(1) opacity(0.2);-o-filter:saturate(0) invert(1) opacity(0.2);user-select:none}figure.blendedcoders-captcha>nav{background:white;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;height:0;margin-top:-1px;padding:0;text-align:center;border-radius:inherit}figure.blendedcoders-captcha>nav label.ak-captcha-question{font-size:1.05em;font-weight:500;margin-bottom:1rem}figure.blendedcoders-captcha>nav>nav{flex:1;margin-top:1rem}figure.blendedcoders-captcha>nav>nav>button{padding:.5rem .75rem;cursor:pointer;transition:all .15s ease;color:black;border-radius:4px;border:1px solid rgba(0,0,0,0.15);font-size:.9em;text-transform:none;font-weight:500;font-family:inherit;background:#f1f1f1;margin-bottom:.25rem}figure.blendedcoders-captcha>nav>nav>button:hover{background:#e4e4e4}figure.blendedcoders-captcha>nav>nav>button:active{background:#dedede}figure.blendedcoders-captcha>nav>nav>button.active{border-color:#83c8ff;background:#d0eaff}figure.blendedcoders-captcha>nav>img{max-width:100%;max-height:300px;border-radius:8px;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.blendedcoders-captcha.developped>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent}figure.blendedcoders-captcha.developped>main>menu>main::before,figure.blendedcoders-captcha.developped>main>menu>main::after{content:'';width:100%;height:100%;position:absolute;left:50%;top:50%;border-radius:50%;background:rgba(0,124,183,0.3);z-index:1;pointer-events:none;animation:.75s waitingForVeirifcation linear infinite alternate;transform-origin:50% 50%;transform:translate(-50%, -50%) scale(0)}@keyframes waitingForVeirifcation{from{transform:translate(-50%, -50%) scale(0)}to{transform:translate(-50%, -50%) scale(1.5)}}figure.blendedcoders-captcha.developped>main>menu>main::before{animation-delay:.75s}figure.blendedcoders-captcha.developped>nav{margin-top:0;height:fit-content;padding:1rem}figure.blendedcoders-captcha.verified>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent;color:#1f9cff;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.blendedcoders-captcha.verified>main>menu>main>i{transform:scale(1)}figure.blendedcoders-captcha.failed>main>menu>main{pointer-events:none;border-radius:50%;border-color:transparent;color:#ff5c5c;box-shadow:0 0 0 1px rgba(0,0,0,0.15)}figure.blendedcoders-captcha.failed>main>menu>main>i{transform:scale(1)}figure.blendedcoders-captcha.redo>main>menu>main{border-radius:50%;border-color:transparent;box-shadow:0 0 0 1px rgba(0,0,0,0.15);color:inherit}figure.blendedcoders-captcha.redo>main>menu>main>i{transform:scale(1)}`
+
   let theme_node = document.createElement("style")
   theme_node.innerHTML = theme_plain
   document.head.appendChild(theme_node)
 }())
 
-class AdarCaptcha {
+class BlendedCaptcha {
 
-  constructor(target) {
+  constructor(target, options={}) {
     this.captcha = target instanceof HTMLElement ? target : document.querySelector(target)
     this.onEvents = {}
     this.startTime = new Date().getTime()
-    this.survey = {
-      "question": "What does this picture represent?",
-      "picture": "https://images.unsplash.com/photo-1621867822738-ba65f95a8eea?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80",
-      "answers": ["a Beach","a River","Hawai","New York"],
-      "answer": Math.floor(Math.random() * (4 - 1) + 1)
+    this.attempts = 0
+    this.redos = 0
+    this.status = 0
+    this.options = {
+      attempts: 3,
+      redos: 2,
+      lang: "en"
     }
+    Object.entries(options).forEach(([key, value]) => this.options[key] = value)
+
     return this
   }
 
@@ -26,21 +76,16 @@ class AdarCaptcha {
     }
   }
 
-  get Survey() {
-    return this.survey
-  }
-
   get Session() {
     return {
-      status: 0,
+      status: this.status,
       stats: {
         period: {
           open: this.startTime,
           close: undefined
         },
         navigator: navigator || undefined
-      },
-      survey: this.Survey
+      }
     }
   }
 
@@ -49,7 +94,7 @@ class AdarCaptcha {
     <main>
       <menu>
         <main data-actor="checkbox">
-          <i class="far fa-check"></i>
+          <i data-actor="statusIcon" class="far fa-check"></i>
         </main>
       </menu>
       <menu>
@@ -60,12 +105,10 @@ class AdarCaptcha {
       </menu>
     </main>
     <nav data-actor="survey">
-      <center style="padding: 1rem; font-size: 13px;">
-        Loading survey,
-        <br>
-        Please wait while loading resources...
-      </center>
     </nav>
+    <span class="ak-ask">
+      <a href="#">Provided by Blendedcoders</a>
+    <span>
     `
     this.captcha.innerHTML = template
     this.captcha.actors = {}
@@ -77,52 +120,199 @@ class AdarCaptcha {
   Init() {
     // on click to verify that the user is not a robot
     this.captcha.actors.checkbox.onclick = () => {
-      this.Develop()
-      this.Session.status = 1
+      if( +this.options.redos - this.redos < 0 ) return
+
       return this.loadSurvey()
     }
 
     return this.dispatchEvent("init")
   }
 
-  Develop() {
-    this.captcha.classList.add("developped")
+  setStatus(status) {
+    this.status = +status
+    const statusNames = [
+      "awake",
+      "loading",
+      "verifying",
+      "human",
+      "redo",
+      "failed",
+      "robot"
+    ]
+
+
+    switch(+status) {
+      case 0:
+        this.captcha.classList.remove("developped")
+        this.captcha.classList.remove("verified")
+        this.captcha.classList.remove("failed")
+        this.captcha.classList.remove("redo")
+      break;
+
+      case 1:
+      case 2:
+        this.captcha.classList.remove("verified")
+        this.captcha.classList.remove("failed")
+        this.captcha.classList.remove("redo")
+
+        this.captcha.classList.add("developped")
+      break;
+
+      case 3:
+        this.captcha.classList.remove("developped")
+        this.captcha.classList.remove("failed")
+        this.captcha.classList.remove("redo")
+
+        this.captcha.classList.add("verified")
+        this.dispatchEvent("human", [1])
+      break;
+
+      case 4:
+        this.captcha.classList.remove("developped")
+        this.captcha.classList.remove("verified")
+        this.captcha.classList.remove("failed")
+
+        this.captcha.classList.add("redo")
+      break;
+
+      case 5:
+        this.captcha.classList.remove("developped")
+        this.captcha.classList.remove("verified")
+        this.captcha.classList.remove("redo")
+
+        this.captcha.classList.add("failed")
+      break;
+
+      case 6:
+        this.captcha.classList.remove("developped")
+        this.captcha.classList.remove("verified")
+        this.captcha.classList.remove("redo")
+
+        this.captcha.classList.add("failed")
+
+        this.dispatchEvent("robot", [0])
+      break;
+    }
+
+    return this.dispatchEvent("statuschange", [statusNames[this.status]])
+  }
+
+  verifyingSurvey() {
+    this.setStatus(1)
+    this.captcha.actors.statusIcon.className = `far fa-check`
+
+    let template = `
+      <center style="padding: 1rem; font-size: 13px;">
+        Loading survey,
+        <br>
+        Please wait while loading resources...
+      </center>
+    `
+    this.captcha.actors.survey.innerHTML = template
+
     return this
   }
 
-  Collapse() {
-    this.captcha.classList.remove("developped")
+  failedSurvey() {
+    this.setStatus(5)
+    this.captcha.actors.statusIcon.className = `far fa-times`
+
+    let template = `
+      <center style="padding: 1rem; font-size: 13px;">
+        You failed all the ${this.options.attempts} attempts.
+        <br>
+        We are sorry, but you can not continue
+      </center>
+    `
+    this.captcha.actors.survey.innerHTML = template
+
     return this
   }
 
-  loadSurvey() {
+  redoSurvey() {
+    this.setStatus(4)
+    this.captcha.actors.statusIcon.className = `far fa-redo`
+
+    // reset attempts
+    this.attempts = 0
+
+    // increase redos
+    this.redos += 1
+
+    return this
+  }
+
+  async loadSurvey() {
+    if( +this.options.attempts - this.attempts <= 0 ) return
+
+    this.verifyingSurvey()
+
+    const surveys = await this.fetchURL('https://raw.githubusercontent.com/Adnanear/Blendedcaptcha/main/blendedcoders-captcha.json')
+    var layer = Math.randomExcept(this.layer, 0, surveys.length)
+    const survey = {
+      key: layer,
+      value: surveys[layer],
+      answerText: surveys[layer].answers[surveys[layer].answer]
+    }
+
     let template = `
       <label class="ak-captcha-question">
-        ${this.Survey.question}
+        ${survey.value.question}
       </label>
+      <img src="${survey.value.picture}" alt="captcha_picture_x">
       <nav>
         ${
-          this.Survey.answers.map((answer, i) => `<button type="button" data-layer=${i}>${answer}</button>`).join(' ')
+          survey.value.answers.sort(() => Math.random() - 0.5).map(answer => `<button type="button" data-layer="${answer}">${answer}</button>`).join(' ')
         }
       </nav>
-      <img src="${this.Survey.picture}" alt="captcha_picture_x">
     `
     this.captcha.actors.survey.innerHTML = template
     this.captcha.actors.survey.querySelectorAll("button[data-layer]").forEach(answer => {
       answer.onclick = () => {
-        var layer = isNaN(answer.dataset.layer) ? -1 : +answer.dataset.layer
 
-        if( layer == +this.Survey.answer ) {
-          this.Session.status = 2
-          this.Collapse()
+        //answer.parentNode.innerHTML = ""
+        var layer = answer.dataset.layer
+
+        if( layer == survey.answerText ) {
+          this.setStatus(3)
           this.captcha.classList.add("verified")
         }
-        else this.loadSurvey()
-
+        else {
+          if(this.attempts < this.options.attempts)
+            this.loadSurvey()
+          else {
+            this.failedSurvey()
+            if( +this.options.redos - this.redos > 0 )
+              setTimeout(() => {
+                this.redoSurvey()
+              }, 1000)
+            else this.setStatus(6)
+          }
+        }
       }
     })
 
-    return this
+    this.attempts += 1
+    this.layer = survey.key
+    return this.dispatchEvent("load")
+  }
+
+  async fetchURL(url) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = () => {
+        if( xhr.readyState == 4 && xhr.status == 200 ) {
+          var data = JSON.parse(xhr.response)
+          resolve(data)
+        }
+      }
+      xhr.open(
+        'GET',
+        url,
+        true
+      )
+      xhr.send()
+    })
   }
 
   on(events, callback) {
