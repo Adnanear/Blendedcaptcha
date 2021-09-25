@@ -250,7 +250,7 @@ class BlendedCaptcha {
     this.verifyingSurvey()
 
     const surveys = await this.fetchURL('https://raw.githubusercontent.com/Adnanear/Blendedcaptcha/main/blendedcoders-captcha.json')
-    var layer = Math.randomExcept(this.layer, 0, surveys.length)
+    var layer = Math.randomExcept(this.layer, 0, surveys.length - 1)
     const survey = {
       key: layer,
       value: surveys[layer],
